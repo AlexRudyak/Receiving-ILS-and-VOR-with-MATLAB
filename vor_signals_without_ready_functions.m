@@ -1,0 +1,12 @@
+fs = 300e6;
+ts = 1/fs;
+t = 0:ts:0.06;
+vc = 20;
+vm = 5;
+m = vm/vc;
+fm = 30;
+A = 1;
+fc = 108e6;
+mf = 0.5;
+vam = vc*(1+m.*sin(2*pi*fm*t))*A.*sin(2*pi*fc*t+mf*sin(2*pi*fm*t));
+plot(t,vam);
