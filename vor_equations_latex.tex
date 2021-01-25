@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage{physics,amsmath,amssymb}
 
 \title{MATHEMATICAL REPRESENTATION OF VOR SIGNALS}
 \author{Alex Rudyak}
@@ -68,13 +69,13 @@ X_{FM}(t) = A_c\cos(2\pi f_c t + 2\pi f_\Delta\\ \int_{0}^{t} X_m(t) )
 For a single tone modulation
 \begin{equation}
 \label{integral}
-\int_{0}^{t} X_m(t) = \int_{0}^{t} A_m \cos (2\pi f_m t) = \frac{A_m}{2 \pi f_m} sin(2 \pi f_m t)
+\int_{0}^{t} X_m(t) = \int_{0}^{t} A_m \cos (2\pi f_m t) = \frac{A_m}{2 \pi f_m} \sin(2 \pi f_m t)
 \end{equation}
 
-Using equation \ref{FM modulation equation} and \ref{integral}:
+Using equation \eqref{FM modulation equation} and \eqref{integral}:
 \begin{equation}
 \label{final_fm_equation}
-X_{FM}(t) = A_c\cos(2\pi f_c t + \frac{f_\Delta}{f_m}A_m sin(2 \pi f_m t))
+X_{FM}(t) = A_c\cos(2\pi f_c t + \frac{f_\Delta}{f_m}A_m \sin(2 \pi f_m t))
 \end{equation}
 
 \newpage
@@ -91,9 +92,8 @@ X_{VOR}(t) = A_c \cos (2 \pi f_c t)(1 + c(t) + g(t))
 
 Where:
 
-\begin{equation}
-\label{c(t)}
-c(t) = m_{sub} \cos (2 \pi \int_{0}^{t}(f_{sub} + f_\Delta \cos(2 \pi f_m t + \phi_{REF}))dt) 
+\begin{equation}\label{c(t)}
+c(t) = m_{sub} \cos (2 \pi \int_{0}^{t}\left(f_{sub} + f_\Delta \cos(2 \pi f_m t + \phi_{REF})\right)dt) 
 \end{equation}
 
 \begin{equation}
