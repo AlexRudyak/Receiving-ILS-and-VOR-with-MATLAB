@@ -9,7 +9,7 @@
 
 \maketitle
 \tableofcontents
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Equations} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -93,13 +93,13 @@ Where:
 
 \begin{equation}
 \label{c(t)}
-c(t) = m_c \cos (2 \pi \int_{0}^{t}(f_{sub-carrier} + f_\Delta \cos(2 \pi f_m t + \phi_{REF}))dt) 
+c(t) = m_{sub} \cos (2 \pi \int_{0}^{t}(f_{sub} + f_\Delta \cos(2 \pi f_m t + \phi_{REF}))dt) 
 \end{equation}
 
 \begin{equation}
 \label{g(t)}
-g(t) = m_{AM} \cos (2 \pi f_m t - \phi_{VAR})
-\end{equation}
+g(t) = m_{ar} \cos (2 \pi f_m t + \phi_{VAR})
+\end{equation} %antenna rotation
 \\
 The final result, direction relation to North is calculated as:
 \begin{equation}
@@ -112,24 +112,28 @@ The final result, direction relation to North is calculated as:
 \section{Variables} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Variable Table}
+\subsection{VOR Variable Table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{table}[ht]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|}
 \hline
-\multicolumn{2}{|c|}{Base Variables} & units & \multicolumn{2}{c|}{FM Carrier Variables} & units \\ \hline
-$f_m$              & 30 & Hz            & $f_{c_{FM}}$                       & 9960 & Hz  \\ \hline
-$A_m$              & 2 &V              & $A_c$                       & 6 &V       \\ \hline
-$\phi_m$            & 0 &      degree         & $\phi_c$                     & 0  &   degree    \\ \hline
-\multicolumn{2}{|c|}{AM Variables}   & & \multicolumn{2}{c|}{FM Variables}    &  \\ \hline
-m                 & 0.3  &            & $f_{\Delta}$   & 480 & Hz        \\ \hline
+\textbf{Symbol}               & \textbf{Description}                            & \textbf{value}        & \textbf{units} \\ \hline
+$f_c$                          & Carrier frequency                               & 108                   & MHz            \\ \hline
+$A_c$                          & Carrier Amplitude                               & 2                     & V              \\ \hline
+$m_{sub}$                        & Sub-carrier modulation depth                    & 0.30                  &                \\ \hline
+$f_{sub}$                        & Sub-carrier frequency                           & 9960                  & Hz             \\ \hline
+$f_{\Delta}$                    & Frequency Deviation                             & 480                   & Hz             \\ \hline
+$f_m$                          & Tone modulation frequency                       & 30                    & Hz             \\ \hline
+$\phi_{REF}$  & Reference phase                                 & 0                     & rad            \\ \hline
+$m_{ar}$                         & Modulation depth of antenna rotation            & 0.30                  &                \\ \hline
+$\phi_{VAR}$ & Variable phase, changes based on rotation angle & $0-2\pi$ & rad            \\ \hline
 \end{tabular}
 \caption{Constants}
 \label{table:data}
 \end{table}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Additional Equations}
 
 %%%%%%%%cos(a1x)*cos(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -153,6 +157,27 @@ m                 & 0.3  &            & $f_{\Delta}$   & 480 & Hz        \\ \hli
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%sin(a1x)*sin(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{equation}
+\label{sin sin additional}
+\sin(a_1x)\sin(a_2x) = \frac{1}{2}[\cos((a_1-a_2)x) - \cos((a_1+a_2)x)]
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%integral cos(ax)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{equation}
+\label{integral cos}
+\int (\cos(ax)dx = \frac{1}{a}\sin(ax) + C
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%integral sin(ax)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{equation}
+\label{integral sin}
+\int (\sin(ax)dx = -\frac{1}{a}\cos(ax) + C
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%integral cos(a1x)*cos(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{integral cos cos additional}
@@ -166,4 +191,9 @@ m                 & 0.3  &            & $f_{\Delta}$   & 480 & Hz        \\ \hli
 \int (sin(a_1x))(\cos(a_2x))dx = -\frac{\cos((a_1-a_2)x)}{2(a_1-a_2)} - \frac{\cos((a_1+a_2)x)}{2(a_1+a_2)} + C 
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
 \end{document}
