@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{physics,amsmath,amssymb}
+\usepackage{graphicx}
 
 \title{MATHEMATICAL REPRESENTATION OF VOR SIGNALS}
 \author{Alex Rudyak}
@@ -10,12 +11,13 @@
 
 \maketitle
 \tableofcontents
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Equations} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{AM}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Equations} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{AM}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Base tone signal}
 
@@ -24,43 +26,44 @@
 X_{m}(t) = A_m \cos (2\pi f_m t + \phi_m)
 \end{equation}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Carrier equation}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{Carrier equation am}
 X_{c}(t) = A_c \cos (2\pi f_c t + \phi_c)
 \end{equation}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{AM modulation equations}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{AM modulation equation}
 X_{AM}(t) = [1 + m\cos(2\pi f_m t + \phi_m)]A_c\cos(2\pi f_c t + \phi_c)
 \end{equation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{FM}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{FM}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Base tone signal}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{Base tone equation fm}
 X_{m}(t) = A_m \cos (2\pi f_m t + \phi_m)
 \end{equation}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Carrier equation}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{Carrier equation fm}
 X_{c}(t) = A_c \cos (2\pi f_c t + \phi_c)
 \end{equation}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{FM modulation equations}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{FM modulation equation}
 X_{FM}(t) = A_c\cos(2\pi f_c t + 2\pi f_\Delta\\ \int_{0}^{t} X_m(t) )
@@ -80,7 +83,7 @@ X_{FM}(t) = A_c\cos(2\pi f_c t + \frac{f_\Delta}{f_m}A_m \sin(2 \pi f_m t))
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{VOR}
+\subsection{VOR Transmit}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 For simplicity purposes station identifier and Morse is not implemented for now. 
 The VOR signal can be expressed as a sum of signals:
@@ -107,12 +110,48 @@ The final result, direction relation to North is calculated as:
 \phi_{Direction} = \phi_{REF}-\phi_{VAR}
 \end{equation}
 
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Variables} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{VOR Receive}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+To receive VOR signals, we first need to AM demodulate the signal, and then FM demodulate it.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{AM Demodulation}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Common techniques for AM demodulation are:
+\begin{itemize}
+    \item Product Detector
+    \item Envelope Detector
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Product Detector}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The simplest form of AM demodulation, and the chosen method. The technique simply multiplies the incoming AM signal with a local oscillator having the same frequency and phase.
+\begin{equation}
+\label{demodulator section AM modulation equation}
+X_{AM}(t) = [1 + m\cos(2\pi f_m t + \phi_m)]A_c\cos(2\pi f_c t + \phi_c)
+\end{equation}
 
-\subsection{VOR Variable Table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{FM Demodulation}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Common techniques for FM demodulation are:
+\begin{itemize}
+    \item Slope Detector
+    \item Ratio Detector
+    \item Quadrature Detector
+    \item Phase-locked loop as a detector
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Phase-locked loop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Variables} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{VOR Variable Table}%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[ht]
@@ -121,74 +160,95 @@ The final result, direction relation to North is calculated as:
 \textbf{Symbol}               & \textbf{Description}                            & \textbf{value}        & \textbf{units} \\ \hline
 $f_c$                          & Carrier frequency                               & 108                   & MHz            \\ \hline
 $A_c$                          & Carrier Amplitude                               & 2                     & V              \\ \hline
-$m_{sub}$                        & Sub-carrier modulation depth                    & 0.30                  &                \\ \hline
+$m_{sub}$                        & Sub-carrier modulation depth                    & 0.30                  &       -         \\ \hline
 $f_{sub}$                        & Sub-carrier frequency                           & 9960                  & Hz             \\ \hline
 $f_{\Delta}$                    & Frequency Deviation                             & 480                   & Hz             \\ \hline
 $f_m$                          & Tone modulation frequency                       & 30                    & Hz             \\ \hline
 $\phi_{REF}$  & Reference phase                                 & 0                     & rad            \\ \hline
-$m_{ar}$                         & Modulation depth of antenna rotation            & 0.30                  &                \\ \hline
+$m_{ar}$                         & Modulation depth of antenna rotation            & 0.30                  &         -       \\ \hline
 $\phi_{VAR}$ & Variable phase, changes based on rotation angle & $0-2\pi$ & rad            \\ \hline
 \end{tabular}
 \caption{Constants}
 \label{table:data}
 \end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{VOR Diagrams}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+General VOR Receiver block diagram:
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 12cm]{picture1.png}
+    \caption{Basic Receiver Diagram}
+    \label{fig:receive_block}
+\end{figure}
+
+
+
 \newpage
-\section{Additional Equations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Additional Equations}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%cos(a + b)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{equation}
+\label{cos a+b additional}
+\cos(\alpha + \beta) = \cos (\alpha) \cos(\beta) - \sin ( \alpha) \sin (\beta)
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%cos(a1x)*cos(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{cos cos additional}
-\cos(a_1x)\cos(a_2x) = \frac{1}{2}[\cos((a_1-a_2)x) + \cos((a_1+a_2)x)]
+\cos(\alpha x)\cos(\beta x) = \frac{1}{2}[\cos((\alpha-\beta)x) + \cos((\alpha+\beta)x)]
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%cos(a1x)*sin(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{cos sin additional}
-\cos(a_1x)\sin(a_2x) = \frac{1}{2}[\sin((a_1+a_2)x) - \sin((a_1-a_2)x)]
+\cos(\alpha x)\sin(\beta x) = \frac{1}{2}[\sin((\alpha+\beta)x) - \sin((\alpha-\beta)x)]
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%sin(a1x)*cos(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{sin cos additional}
-\sin(a_1x)\cos(a_2x) = \frac{1}{2}[\sin((a_1+a_2)x) + \sin((a_1-a_2)x)]
+\sin(\alpha x)\cos(\beta x) = \frac{1}{2}[\sin((\alpha +\beta)x) + \sin((\alpha -\beta)x)]
 \end{equation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%sin(a1x)*sin(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%sin(a1x)*sin(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{sin sin additional}
-\sin(a_1x)\sin(a_2x) = \frac{1}{2}[\cos((a_1-a_2)x) - \cos((a_1+a_2)x)]
+\sin(\alpha x)\sin(\beta x) = \frac{1}{2}[\cos((\alpha -\beta)x) - \cos((\alpha +\beta)x)]
 \end{equation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%integral cos(ax)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{integral cos}
-\int (\cos(ax)dx = \frac{1}{a}\sin(ax) + C
+\int (\cos(\alpha x)dx = \frac{1}{\alpha}\sin(ax) + C
 \end{equation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%integral sin(ax)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{integral sin}
-\int (\sin(ax)dx = -\frac{1}{a}\cos(ax) + C
+\int (\sin(\alpha x)dx = -\frac{1}{\alpha}\cos(ax) + C
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%integral cos(a1x)*cos(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%integral cos(a1x)*cos(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{integral cos cos additional}
-\int (\cos(a_1x))(\cos(a_2x))dx = \frac{sin((a_2-a_1)x)}{2(a_2-a_1)} + \frac{sin((a_2+a_1)x)}{2(a_2+a_1)} + C 
+\int (\cos(\alpha x))(\cos(\beta x))dx = \frac{\sin((\beta-\alpha)x)}{2(\beta-\alpha)} + \frac{\sin((\beta+\alpha)x)}{2(\beta+\alpha)} + C 
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%integral cos(a1x)*sin(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%integral cos(a1x)*sin(a2x)%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation}
 \label{integral cos sin additional}
-\int (sin(a_1x))(\cos(a_2x))dx = -\frac{\cos((a_1-a_2)x)}{2(a_1-a_2)} - \frac{\cos((a_1+a_2)x)}{2(a_1+a_2)} + C 
+\int (\sin(\alpha x))(\cos(\beta x))dx = -\frac{\cos((\alpha-\beta)x)}{2(\alpha-\beta)} - \frac{\cos((\alpha+\beta)x)}{2(\alpha+\beta)} + C 
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
